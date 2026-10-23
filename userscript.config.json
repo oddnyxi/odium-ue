@@ -1,0 +1,11 @@
+{
+  "name": "Unity Explorer",
+  "namespace": "https://github.com/oddnyxi",
+  "description": "Runtime explorer for Unity WebGL games: scene hierarchy, inspector, live field editing and method calls.",
+  "author": "Nyxi",
+  "icon": "assets/icon-48.png",
+  "match": ["*://*/*"],
+  "grant": ["none"],
+  "run-at": "document-start",
+  "noframes": false
+}
