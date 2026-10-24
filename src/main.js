@@ -23,7 +23,7 @@ import css from 'bundle-text:./ui/explorer.css';
 import { liveDump, liveMetadata, zip } from './dumper/live.js';
 import { download as saveFile } from './dumper/zip.js';
 
-const VERSION = '1.3.1';
+const VERSION = '1.3.2';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const SETTINGS_KEY = 'unity-explorer:settings';
 

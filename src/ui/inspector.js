@@ -197,7 +197,7 @@ export class Inspector {
     const { il, unity } = this;
     const go = t.go;
     const name = unity.name(go) ?? '?';
-    const active = unity.try('activeSelf', go);
+    const active = unity.isActive(go);
     const tr = unity.try('transform', go);
 
     const nameIn = h('input.ue-in', { value: name, style: { fontSize: '14px', fontWeight: '700', height: '30px' } });
@@ -206,10 +206,22 @@ export class Inspector {
     });
     const sw = h('button.ue-sw', { title: 'Active' });
     sw.classList.toggle('on', !!active);
+    // unknown state (no activeSelf in the build): assume on, since the object was found alive
+    sw.classList.toggle('on', active !== false);
     sw.onclick = () => {
-      try { unity.setActive(go, !sw.classList.contains('on')); sw.classList.toggle('on', !!unity.try('activeSelf', go)); this.o.onChange && this.o.onChange(); } catch (e) { this._err(e); }
+      const want = !sw.classList.contains('on');
+      try {
+        const r = unity.setActive(go, want);
+        if (r && r.mode === 'soft') {
+          this.app.ui.notify(want
+            ? `Re-enabled ${r.count} component${r.count === 1 ? '' : 's'}`
+            : `This build has no GameObject.SetActive, so ${r.count} renderer/collider/behaviour component${r.count === 1 ? ' was' : 's were'} disabled instead`, 'info', 4500);
+        }
+      } catch (e) { this._err(e); }
+      sw.classList.toggle('on', unity.isActive(go) !== false);
+      this.o.onChange && this.o.onChange();
     };
-    this.updaters.push(() => { if (document.activeElement !== nameIn) sw.classList.toggle('on', !!unity.try('activeSelf', go)); });
+    this.updaters.push(() => { if (document.activeElement !== nameIn) sw.classList.toggle('on', unity.isActive(go) !== false); });
 
     const chips = [this._addrChip(go)];
     const layer = unity.try('layer', go);

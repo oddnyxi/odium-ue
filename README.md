@@ -309,6 +309,15 @@ unity-explorer/
 
 ## Changelog
 
+### 1.3.2
+
+- **Fix: turning a GameObject off didn't work on many builds.** Unity strips `GameObject.SetActive` from builds whose game never calls it, and the toggle failed quietly there. Now:
+  - With `SetActive` (most real games), it's used as before. If the game turns the object straight back on, you're told instead of the switch silently flipping back.
+  - Without it, the Renderers, Colliders and Behaviours on the object and its children are disabled instead, and exactly those are re-enabled when you turn it back on. A notice says this happened.
+  - If the build has neither, the error says why.
+- **Fix: the active switch could show "off" for an active object** when the build strips `get_activeSelf`, so clicking it tried to turn the object *on*. The state now falls back to what was last set, then `activeInHierarchy`.
+- **Fix: objects you turned off disappeared from the scene tree** on builds that can only list active objects, so they couldn't be turned back on. They (and their children) now stay listed.
+
 ### 1.3.1
 
 - **Fix: the userscript failed to load** with `Invalid regular expression: … Range out of order in character class`. The minified build contained a literal U+FFFF character, which some userscript managers mangle when they inject the script. The identifier pattern is now ASCII-only, and the build escapes every non-ASCII character, so the output is plain ASCII.
