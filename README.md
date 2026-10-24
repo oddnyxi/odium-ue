@@ -309,6 +309,10 @@ unity-explorer/
 
 ## Changelog
 
+### 1.3.1
+
+- **Fix: the userscript failed to load** with `Invalid regular expression: … Range out of order in character class`. The minified build contained a literal U+FFFF character, which some userscript managers mangle when they inject the script. The identifier pattern is now ASCII-only, and the build escapes every non-ASCII character, so the output is plain ASCII.
+
 ### 1.3.0
 
 - **IntelliSense in the console.** Autocomplete for type names, namespaces, static and instance members (inherited ones included), struct fields, enum values and type names inside `Il2Cpp.type('…')`. Member types are followed through fields, properties and method results, with generic arguments substituted. Signature help shows the overloads of the method being called. It's static: nothing runs while you type.
