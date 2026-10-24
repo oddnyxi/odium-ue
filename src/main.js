@@ -14,7 +14,7 @@ import { I } from './ui/icons.js';
 import { h } from './ui/dom.js';
 import css from 'bundle-text:./ui/explorer.css';
 
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 const SETTINGS_KEY = 'unity-explorer:settings';
 
 function loadSettings() {

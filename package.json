@@ -1,6 +1,6 @@
 {
   "name": "unity-explorer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Runtime explorer for Unity WebGL (IL2CPP) games: scene hierarchy, inspector, field editing and method calls, in an Odium UI window.",
   "author": "Nyxi",
   "license": "SEE LICENSE IN LICENSE.md",

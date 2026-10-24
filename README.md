@@ -35,6 +35,7 @@
 ## Features
 
 - **Scene hierarchy.** Every GameObject in a searchable tree, with inactive and hidden objects marked and prefabs that aren't in a scene grouped separately.
+- **In-game picker.** Click an object in the game view and it's selected in the tree. Works for UI elements, 3D colliders (camera raycast) and 2D colliders.
 - **GameObject view.** Rename, toggle active, destroy, edit position, rotation and scale, enable or disable components, and jump to children.
 - **Inspector.** Fields, properties and methods of any object, grouped by class with inherited members included. Values update live.
 - **Live editing.** Numbers, strings, bools, enums (as a dropdown), vectors and other small structs, and object references.
@@ -68,6 +69,7 @@ The script matches every site, but it only shows up on pages that run a Unity We
 - The right side shows its transform, its components (click one to inspect it) and its children.
 - **Object** opens the GameObject's own managed fields and methods.
 - The eye button shows hidden objects. Refresh rebuilds the tree after the game loads a new scene.
+- The target button picks an object from the game itself. Hover the game to outline what's under the cursor, with its name and type, then click to select it. It checks, in order, UI graphics (topmost canvas first), a `Physics.Raycast` from the main camera, then `Physics2D.OverlapPoint`. <kbd>Esc</kbd> or right-click cancels.
 
 **Inspector**: the tabs are **Fields**, **Properties**, **Methods** and, for collections, **Elements**.
 - Members are grouped by the class that declares them.
@@ -177,6 +179,7 @@ unity-explorer/
 │   │   └── types.js       Il2CppTypeEnum and attribute flags
 │   ├── ui/
 │   │   ├── scene.js       hierarchy tree + inspector
+│   │   ├── picker.js      click-to-select in the game view
 │   │   ├── classes.js     type browser + static inspector
 │   │   ├── inspector.js   fields / properties / methods / elements
 │   │   ├── console.js     JavaScript REPL
@@ -196,5 +199,3 @@ Made by **Nyxi**. The UI is [Odium UI](https://github.com/oddnyxi/odium-ui). The
 ## License
 
 [MIT with attribution](LICENSE.md). © 2025-2026 Nyxi.
-#   o d i u m - u e  
- 
